@@ -10,33 +10,44 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicPostbackProviderRouteImport } from './routes/api/public/postback/$provider'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPostbackProviderRoute =
+  ApiPublicPostbackProviderRouteImport.update({
+    id: '/api/public/postback/$provider',
+    path: '/api/public/postback/$provider',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api/public/postback/$provider'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/public/postback/$provider'
+  id: '__root__' | '/' | '/api/public/postback/$provider'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiPublicPostbackProviderRoute: typeof ApiPublicPostbackProviderRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +59,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/postback/$provider': {
+      id: '/api/public/postback/$provider'
+      path: '/api/public/postback/$provider'
+      fullPath: '/api/public/postback/$provider'
+      preLoaderRoute: typeof ApiPublicPostbackProviderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiPublicPostbackProviderRoute: ApiPublicPostbackProviderRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
