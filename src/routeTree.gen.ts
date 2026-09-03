@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedEarnRouteImport } from './routes/_authenticated/earn'
+import { Route as AuthenticatedRewardsRouteImport } from './routes/_authenticated/rewards'
 import { Route as ApiPublicPostbackProviderRouteImport } from './routes/api/public/postback/$provider'
 
 const IndexRoute = IndexRouteImport.update({
@@ -40,6 +41,11 @@ const AuthenticatedEarnRoute = AuthenticatedEarnRouteImport.update({
   path: '/earn',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedRewardsRoute = AuthenticatedRewardsRouteImport.update({
+  id: '/rewards',
+  path: '/rewards',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiPublicPostbackProviderRoute =
   ApiPublicPostbackProviderRouteImport.update({
     id: '/api/public/postback/$provider',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/earn': typeof AuthenticatedEarnRoute
+  '/rewards': typeof AuthenticatedRewardsRoute
   '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
 }
 export interface FileRoutesByTo {
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/earn': typeof AuthenticatedEarnRoute
+  '/rewards': typeof AuthenticatedRewardsRoute
   '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
 }
 export interface FileRoutesById {
@@ -68,14 +76,26 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/earn': typeof AuthenticatedEarnRoute
+  '/_authenticated/rewards': typeof AuthenticatedRewardsRoute
   '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/dashboard' | '/earn' | '/api/public/postback/$provider'
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/earn'
+    | '/rewards'
+    | '/api/public/postback/$provider'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/earn' | '/api/public/postback/$provider'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/earn'
+    | '/rewards'
+    | '/api/public/postback/$provider'
   id:
     | '__root__'
     | '/'
@@ -83,6 +103,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/_authenticated/dashboard'
     | '/_authenticated/earn'
+    | '/_authenticated/rewards'
     | '/api/public/postback/$provider'
   fileRoutesById: FileRoutesById
 }
@@ -130,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEarnRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/rewards': {
+      id: '/_authenticated/rewards'
+      path: '/rewards'
+      fullPath: '/rewards'
+      preLoaderRoute: typeof AuthenticatedRewardsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/postback/$provider': {
       id: '/api/public/postback/$provider'
       path: '/api/public/postback/$provider'
@@ -143,11 +171,13 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedEarnRoute: typeof AuthenticatedEarnRoute
+  AuthenticatedRewardsRoute: typeof AuthenticatedRewardsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedEarnRoute: AuthenticatedEarnRoute,
+  AuthenticatedRewardsRoute: AuthenticatedRewardsRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
