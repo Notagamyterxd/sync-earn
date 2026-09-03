@@ -16,6 +16,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedEarnRouteImport } from './routes/_authenticated/earn'
 import { Route as AuthenticatedRewardsRouteImport } from './routes/_authenticated/rewards'
 import { Route as AuthenticatedVideosRouteImport } from './routes/_authenticated/videos'
+import { Route as AuthenticatedWithdrawRouteImport } from './routes/_authenticated/withdraw'
 import { Route as ApiPublicPostbackProviderRouteImport } from './routes/api/public/postback/$provider'
 
 const IndexRoute = IndexRouteImport.update({
@@ -52,6 +53,11 @@ const AuthenticatedVideosRoute = AuthenticatedVideosRouteImport.update({
   path: '/videos',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedWithdrawRoute = AuthenticatedWithdrawRouteImport.update({
+  id: '/withdraw',
+  path: '/withdraw',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiPublicPostbackProviderRoute =
   ApiPublicPostbackProviderRouteImport.update({
     id: '/api/public/postback/$provider',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/earn': typeof AuthenticatedEarnRoute
   '/rewards': typeof AuthenticatedRewardsRoute
   '/videos': typeof AuthenticatedVideosRoute
+  '/withdraw': typeof AuthenticatedWithdrawRoute
   '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
 }
 export interface FileRoutesByTo {
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/earn': typeof AuthenticatedEarnRoute
   '/rewards': typeof AuthenticatedRewardsRoute
   '/videos': typeof AuthenticatedVideosRoute
+  '/withdraw': typeof AuthenticatedWithdrawRoute
   '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
 }
 export interface FileRoutesById {
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/_authenticated/earn': typeof AuthenticatedEarnRoute
   '/_authenticated/rewards': typeof AuthenticatedRewardsRoute
   '/_authenticated/videos': typeof AuthenticatedVideosRoute
+  '/_authenticated/withdraw': typeof AuthenticatedWithdrawRoute
   '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
 }
 export interface FileRouteTypes {
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/earn'
     | '/rewards'
     | '/videos'
+    | '/withdraw'
     | '/api/public/postback/$provider'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/earn'
     | '/rewards'
     | '/videos'
+    | '/withdraw'
     | '/api/public/postback/$provider'
   id:
     | '__root__'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/_authenticated/earn'
     | '/_authenticated/rewards'
     | '/_authenticated/videos'
+    | '/_authenticated/withdraw'
     | '/api/public/postback/$provider'
   fileRoutesById: FileRoutesById
 }
@@ -177,6 +189,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedVideosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/withdraw': {
+      id: '/_authenticated/withdraw'
+      path: '/withdraw'
+      fullPath: '/withdraw'
+      preLoaderRoute: typeof AuthenticatedWithdrawRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/postback/$provider': {
       id: '/api/public/postback/$provider'
       path: '/api/public/postback/$provider'
@@ -192,6 +211,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedEarnRoute: typeof AuthenticatedEarnRoute
   AuthenticatedRewardsRoute: typeof AuthenticatedRewardsRoute
   AuthenticatedVideosRoute: typeof AuthenticatedVideosRoute
+  AuthenticatedWithdrawRoute: typeof AuthenticatedWithdrawRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -199,6 +219,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEarnRoute: AuthenticatedEarnRoute,
   AuthenticatedRewardsRoute: AuthenticatedRewardsRoute,
   AuthenticatedVideosRoute: AuthenticatedVideosRoute,
+  AuthenticatedWithdrawRoute: AuthenticatedWithdrawRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
