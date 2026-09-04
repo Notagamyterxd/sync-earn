@@ -14,6 +14,7 @@ import {
   Menu,
   X,
   Gem,
+  ClipboardList,
 } from "lucide-react";
 
 import { Logo } from "@/components/Logo";
@@ -31,6 +32,7 @@ export const meQueryOptions = {
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/earn", label: "Earn", icon: Coins },
+  { to: "/surveys", label: "Paid Surveys", icon: ClipboardList },
   { to: "/rewards", label: "Mystery Boxes", icon: Gift },
   { to: "/videos", label: "Creator Center", icon: Video },
   { to: "/withdraw", label: "Withdraw", icon: Wallet },
