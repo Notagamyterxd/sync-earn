@@ -67,28 +67,8 @@ function WithdrawPage() {
         </p>
       </div>
 
-      <div className="flex items-start gap-2 rounded-xl border border-warning/30 bg-warning/10 p-4 text-sm">
-        <AlertCircle className="mt-0.5 size-4 shrink-0 text-warning" />
-        <p>All other cryptocurrencies are handled via Discord — open a support ticket and our team will arrange it.</p>
-      </div>
-
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="glow-card space-y-4 rounded-xl p-5">
-          <div className="grid grid-cols-3 gap-2">
-            {METHODS.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => setMethod(m.id)}
-                className={`rounded-lg border px-2 py-2 text-xs font-medium transition ${
-                  method === m.id
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-border text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {m.label}
-              </button>
-            ))}
-          </div>
           <div className="space-y-1.5">
             <Label htmlFor="amount">Amount (Robux)</Label>
             <Input
