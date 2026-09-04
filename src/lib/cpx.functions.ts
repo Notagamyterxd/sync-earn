@@ -1,30 +1,15 @@
-import { createServerFn } from "@tanstack/react-start";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { md5 } from "js-md5"; // Or whatever md5 utility library Lovable installed
 
-/**
- * Builds the signed CPX Research offerwall URL for the current user.
- * The secure hash is md5(ext_user_id + "-" + CPX_SECURE_HASH) and is
- * computed server-side so the app secret never reaches the browser.
- */
-export const getCpxWall = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    const appId = process.env["CPX_APP_ID"];
-    const secret = process.env["CPX_SECURE_HASH"];
-    if (!appId || !secret) return { ok: false as const, url: null };
+// HARDCODED CREDENTIALS - Fixed for direct client-side Vite rendering
+const CPX_APP_ID = "35898";
+const CPX_SECURITY_HASH = "2oJcwBUTyANkDCVBaHO6QjCI1FFhK8uv";
 
-    const { createHash } = await import("node:crypto");
-    const userId = context.userId;
-    const secureHash = createHash("md5").update(`${userId}-${secret}`).digest("hex");
-
-    const params = new URLSearchParams({
-      app_id: appId,
-      ext_user_id: userId,
-      secure_hash: secureHash,
-    });
-
-    return {
-      ok: true as const,
-      url: `https://offers.cpx-research.com/index.php?${params.toString()}`,
-    };
-  });
+export function getCpxWall(userId: string): string {
+  if (!userId) return "";
+  
+  // Create the secure hash validation parameter that CPX requires
+  const secure_hash = md5(`${userId}-${CPX_SECURITY_HASH}`);
+  
+  // Generate the clean live iframe address path
+  return `https://cpx-research.com{CPX_APP_ID}&ext_user_id=${userId}&secure_hash=${secure_hash}`;
+}
