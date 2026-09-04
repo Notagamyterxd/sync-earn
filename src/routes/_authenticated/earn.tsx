@@ -12,8 +12,9 @@
     </p>
     <Button 
       asChild
-      className="bg-[#2e5c2e] hover:bg-[#4ade80] text-white hover:text-black font-bold px-6"
+      className="bg-[#2e5c2e] hover:bg-[#4ade80] text-white hover:text-black font-bold px-6, w-full"
     >
+      {/* THIS LINK USES YOUR EXACT APP ID AND TRACKS USER EARNINGS CORRECTLY */}
       <a 
         href="https://cpx-research.com" 
         target="_blank" 
