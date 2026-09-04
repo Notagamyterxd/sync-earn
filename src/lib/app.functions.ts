@@ -239,3 +239,59 @@ export const submitVideo = createServerFn({ method: "POST" })
     if (error) return { ok: false as const, message: error.message };
     return { ok: true as const, message: "Video submitted for review." };
   });
+
+export const getMyTickets = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabase, userId } = context;
+    const tickets = await supabase
+      .from("support_tickets")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+    const ids = (tickets.data ?? []).map((t) => t.id);
+    const messages = ids.length
+      ? await supabase
+          .from("ticket_messages")
+          .select("*")
+          .in("ticket_id", ids)
+          .order("created_at", { ascending: true })
+      : { data: [] as never[] };
+    return { tickets: tickets.data ?? [], messages: messages.data ?? [] };
+  });
+
+export const createTicket = createServerFn({ method: "POST" })
+  .inputValidator((d: { subject: string; body: string }) => ({
+    subject: String(d.subject ?? "").trim(),
+    body: String(d.body ?? "").trim(),
+  }))
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ data, context }) => {
+    if (!data.subject || !data.body) return { ok: false as const, message: "Subject and message are required." };
+    const { data: ticket, error } = await context.supabase
+      .from("support_tickets")
+      .insert({ user_id: context.userId, subject: data.subject })
+      .select("id")
+      .single();
+    if (error || !ticket) return { ok: false as const, message: error?.message ?? "Could not open ticket." };
+    const msg = await context.supabase
+      .from("ticket_messages")
+      .insert({ ticket_id: ticket.id, user_id: context.userId, body: data.body });
+    if (msg.error) return { ok: false as const, message: msg.error.message };
+    return { ok: true as const, message: "Ticket opened." };
+  });
+
+export const replyTicket = createServerFn({ method: "POST" })
+  .inputValidator((d: { ticketId: string; body: string }) => ({
+    ticketId: String(d.ticketId ?? ""),
+    body: String(d.body ?? "").trim(),
+  }))
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ data, context }) => {
+    if (!data.body) return { ok: false as const, message: "Message is required." };
+    const { error } = await context.supabase
+      .from("ticket_messages")
+      .insert({ ticket_id: data.ticketId, user_id: context.userId, body: data.body });
+    if (error) return { ok: false as const, message: error.message };
+    return { ok: true as const, message: "Reply sent." };
+  });

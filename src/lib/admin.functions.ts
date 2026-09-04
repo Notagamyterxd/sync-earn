@@ -190,3 +190,71 @@ export const adminSaveSetting = createServerFn({ method: "POST" })
     if (error) return { ok: false as const, message: error.message };
     return { ok: true as const, message: "Saved." };
   });
+
+export const adminUsers = createServerFn({ method: "POST" })
+  .inputValidator((d: { search?: string } | undefined) => ({ search: String(d?.search ?? "").trim().toLowerCase() }))
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ data, context }) => {
+    const db = await assertAdmin(context as never);
+    let q = db
+      .from("profiles")
+      .select("id,username,username_lower,robux,diamonds,total_earned,status,referral_count,signup_ip,created_at")
+      .order("created_at", { ascending: false })
+      .limit(500);
+    if (data.search) q = q.or(`username_lower.ilike.%${data.search}%,signup_ip.ilike.%${data.search}%`);
+    const { data: users, error } = await q;
+    if (error) throw new Error(error.message);
+    const rows = users ?? [];
+    const ipCounts: Record<string, number> = {};
+    for (const u of rows) if (u.signup_ip) ipCounts[u.signup_ip] = (ipCounts[u.signup_ip] ?? 0) + 1;
+    const { data: bans } = await db.from("bans").select("username_lower,ip,reason,created_at");
+    return {
+      users: rows.map((u) => ({
+        ...u,
+        ip_shared_count: u.signup_ip ? (ipCounts[u.signup_ip] ?? 1) : 0,
+      })),
+      bans: bans ?? [],
+    };
+  });
+
+export const adminBanIp = createServerFn({ method: "POST" })
+  .inputValidator((d: { ip: string; reason?: string; banAccounts?: boolean }) => d)
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ data, context }) => {
+    const db = await assertAdmin(context as never);
+    const ip = String(data.ip ?? "").trim();
+    if (!ip) return { ok: false as const, message: "No IP on record for this user." };
+    await db.from("bans").insert({ ip, reason: data.reason ?? "IP ban (alt/VPN)" });
+    if (data.banAccounts !== false) {
+      await db.from("profiles").update({ status: "banned" }).eq("signup_ip", ip);
+    }
+    return { ok: true as const, message: `IP ${ip} banned.` };
+  });
+
+export const adminTickets = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const db = await assertAdmin(context as never);
+    const [tickets, messages] = await Promise.all([
+      db.from("support_tickets").select("*").order("created_at", { ascending: false }).limit(200),
+      db.from("ticket_messages").select("*").order("created_at", { ascending: true }).limit(1000),
+    ]);
+    return { tickets: tickets.data ?? [], messages: messages.data ?? [] };
+  });
+
+export const adminReplyTicket = createServerFn({ method: "POST" })
+  .inputValidator((d: { ticketId: string; body: string; status?: "open" | "closed" }) => d)
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ data, context }) => {
+    const db = await assertAdmin(context as never);
+    if (data.body?.trim()) {
+      await db.from("ticket_messages").insert({
+        ticket_id: data.ticketId,
+        user_id: context.userId,
+        is_admin: true,
+        body: data.body.trim(),
+      });
+    }
+    if (data.status) await db.from("support_tickets").update({ status: data.status }).eq("id", data.ticketId);
+    return { ok: true as const, message: "Ticket updated." };
+  });
