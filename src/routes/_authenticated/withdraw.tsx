@@ -21,9 +21,9 @@ export const Route = createFileRoute("/_authenticated/withdraw")({
   head: () => ({
     meta: [
       { title: "Withdraw — SyncEarn" },
-      { name: "description", content: "Cash out your Robux balance via Robux, Litecoin or Solana." },
+      { name: "description", content: "Cash out your SyncEarn earnings as Robux." },
       { property: "og:title", content: "Withdraw — SyncEarn" },
-      { property: "og:description", content: "Cash out your Robux balance via Robux, Litecoin or Solana." },
+      { property: "og:description", content: "Cash out your SyncEarn earnings as Robux." },
     ],
   }),
   component: WithdrawPage,
