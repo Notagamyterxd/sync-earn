@@ -63,7 +63,7 @@ function SupportPage() {
           <LifeBuoy className="size-6 text-primary" /> Support
         </h1>
         <p className="text-sm text-muted-foreground">
-          Payments, bans, offerwall credits or other crypto withdrawals — open a ticket and our team replies here.
+          Payments, bans or offerwall credits — open a ticket and our team replies here.
         </p>
       </div>
 

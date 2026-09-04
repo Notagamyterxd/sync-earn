@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Complete offerwalls, open mystery boxes, refer friends and post videos to earn Robux. Fast manual payouts in Robux, LTC and SOL.",
+          "Complete offerwalls, open mystery boxes, refer friends and post videos to earn Robux. Fast manual Robux payouts.",
       },
       { property: "og:title", content: "SyncEarn — Earn Free Robux with Offers & Videos" },
       {
@@ -30,7 +30,7 @@ const FEATURES = [
   { icon: Gift, title: "Mystery Boxes", text: "Spend Diamonds on weighted boxes worth 1–10 Robux." },
   { icon: Video, title: "Creator Center", text: "Link your videos and earn per 100 views once approved." },
   { icon: Users, title: "3-Tier Referrals", text: "Take 5% / 2% / 1% of everything your network earns." },
-  { icon: ShieldCheck, title: "Manual Payouts", text: "Robux, Litecoin and Solana, reviewed by a real admin." },
+  { icon: ShieldCheck, title: "Manual Payouts", text: "Cash out in Robux, reviewed by a real admin." },
 ];
 
 function Landing() {
@@ -61,7 +61,7 @@ function Landing() {
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground">
             SyncEarn pays you for completing offers, watching your videos grow and inviting
-            friends. Cash out in Robux, Litecoin or Solana.
+            friends. Cash out in Robux.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg">
