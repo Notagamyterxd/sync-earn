@@ -177,7 +177,7 @@ export const requestWithdrawal = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ data, context }) => {
     const { userId } = context;
-    if (!["robux", "ltc", "sol"].includes(data.method))
+    if (data.method !== "robux")
       return { ok: false as const, message: "Unsupported method." };
     if (!data.destination) return { ok: false as const, message: "Enter your payout details." };
     if (!Number.isFinite(data.amount) || data.amount <= 0)
