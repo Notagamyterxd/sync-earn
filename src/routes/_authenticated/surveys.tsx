@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_authenticated/surveys")({
 function PaidSurveysComponent() {
   const { user } = useAuth();
   
-  // Fetch the straightforward survey link matching the active user session
+  // Dynamically load the straightforward link tracking the user account
   const cpxUrl = user?.id ? getCpxWall(user.id) : "";
 
   return (
