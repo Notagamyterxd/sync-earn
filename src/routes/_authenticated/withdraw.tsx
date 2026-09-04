@@ -79,7 +79,7 @@ function WithdrawPage() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="destination">{current.hint}</Label>
+            <Label htmlFor="destination">Roblox username or gamepass link</Label>
             <Input
               id="destination"
               value={destination}
