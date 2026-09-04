@@ -10,9 +10,9 @@ import { loginWithUsername, registerWithUsername, validateUsername } from "@/lib
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
-  validateSearch: (search: Record<string, unknown>) => ({
-    mode: search.mode === "register" ? ("register" as const) : ("login" as const),
-    r: typeof search.r === "string" ? search.r : undefined,
+  validateSearch: (search: Record<string, unknown>): { mode?: "login" | "register"; r?: string } => ({
+    mode: search['mode'] === "register" ? "register" : "login",
+    ...(typeof search['r'] === "string" ? { r: search['r'] as string } : {}),
   }),
   head: () => ({
     meta: [
@@ -36,8 +36,8 @@ function AuthPage() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     const bad = validateUsername(username);
-    if (bad) return toast.error(bad);
-    if (password.length < 6) return toast.error("Password must be at least 6 characters.");
+    if (bad) { toast.error(bad); return; }
+    if (password.length < 6) { toast.error("Password must be at least 6 characters."); return; }
     setBusy(true);
     try {
       if (isRegister) {

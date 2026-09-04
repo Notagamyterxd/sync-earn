@@ -35,7 +35,7 @@ function SupportPage() {
   const open = useMutation({
     mutationFn: () => createTicket({ data: { subject, body } }),
     onSuccess: (res) => {
-      if (!res.ok) return toast.error(res.message);
+      if (!res.ok) { toast.error(res.message); return; }
       toast.success(res.message);
       setSubject("");
       setBody("");
@@ -46,7 +46,7 @@ function SupportPage() {
   const reply = useMutation({
     mutationFn: (v: { ticketId: string; body: string }) => replyTicket({ data: v }),
     onSuccess: (res, v) => {
-      if (!res.ok) return toast.error(res.message);
+      if (!res.ok) { toast.error(res.message); return; }
       toast.success(res.message);
       setReplies((r) => ({ ...r, [v.ticketId]: "" }));
       qc.invalidateQueries({ queryKey: ["tickets"] });

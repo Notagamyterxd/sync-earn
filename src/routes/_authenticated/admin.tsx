@@ -281,7 +281,7 @@ function AdminPage() {
                                 processWd.mutate({
                                   id: w.id,
                                   action: "deny",
-                                  note: window.prompt("Reason") ?? undefined,
+                                  note: window.prompt("Reason") ?? "",
                                 })
                               }
                             >
