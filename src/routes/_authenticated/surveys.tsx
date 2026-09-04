@@ -4,7 +4,6 @@ import { getCpxWall } from "@/lib/cpx.functions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/surveys")({
   component: PaidSurveysComponent,
@@ -12,17 +11,9 @@ export const Route = createFileRoute("/_authenticated/surveys")({
 
 function PaidSurveysComponent() {
   const { user } = useAuth();
-  const [cpxUrl, setCpxUrl] = useState<string>("");
-
-  useEffect(() => {
-    async function generateUrl() {
-      if (user?.id) {
-        const url = await getCpxWall(user.id);
-        setCpxUrl(url);
-      }
-    }
-    generateUrl();
-  }, [user]);
+  
+  // Fetch the straightforward survey link matching the active user session
+  const cpxUrl = user?.id ? getCpxWall(user.id) : "";
 
   return (
     <div className="space-y-6 p-6 max-w-6xl mx-auto">
