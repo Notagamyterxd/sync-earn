@@ -29,12 +29,6 @@ export const Route = createFileRoute("/_authenticated/withdraw")({
   component: WithdrawPage,
 });
 
-const METHODS = [
-  { id: "robux", label: "Robux", hint: "Roblox username or gamepass link" },
-  { id: "ltc", label: "Litecoin (LTC)", hint: "Your LTC wallet address" },
-  { id: "sol", label: "Solana (SOL)", hint: "Your SOL wallet address" },
-] as const;
-
 const STATUS_TONE = {
   pending: "secondary",
   approved: "default",
