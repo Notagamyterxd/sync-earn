@@ -7,7 +7,6 @@ import {
   Gift,
   Video,
   Wallet,
-  Users,
   MessageSquare,
   LifeBuoy,
   Shield,
@@ -35,7 +34,6 @@ const NAV = [
   { to: "/rewards", label: "Mystery Boxes", icon: Gift },
   { to: "/videos", label: "Creator Center", icon: Video },
   { to: "/withdraw", label: "Withdraw", icon: Wallet },
-  { to: "/referrals", label: "Referrals", icon: Users },
   { to: "/chat", label: "Global Chat", icon: MessageSquare },
   { to: "/support", label: "Support", icon: LifeBuoy },
 ] as const;

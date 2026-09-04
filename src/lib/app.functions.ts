@@ -141,7 +141,7 @@ export const openMysteryBox = createServerFn({ method: "POST" })
 
     const total = weights.reduce((s, w) => s + w.weight, 0);
     let roll = Math.random() * total;
-    let reward = weights[0].reward;
+    let reward = weights[0]?.reward ?? 1;
     for (const w of weights) {
       roll -= w.weight;
       if (roll <= 0) {

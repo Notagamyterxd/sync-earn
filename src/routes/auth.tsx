@@ -99,7 +99,7 @@ function AuthPage() {
           {isRegister ? "Already registered?" : "New to SyncEarn?"}{" "}
           <Link
             to="/auth"
-            search={{ mode: isRegister ? "login" : "register", r }}
+            search={{ mode: isRegister ? "login" : "register", ...(r ? { r } : {}) }}
             className="font-medium text-primary hover:underline"
           >
             {isRegister ? "Log in" : "Create an account"}
