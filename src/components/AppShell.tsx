@@ -7,7 +7,6 @@ import {
   Gift,
   Video,
   Wallet,
-  Users,
   MessageSquare,
   LifeBuoy,
   Shield,
