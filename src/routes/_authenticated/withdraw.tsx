@@ -39,10 +39,9 @@ function WithdrawPage() {
   const qc = useQueryClient();
   const { data } = useQuery({ queryKey: ["me"], queryFn: () => getMe() });
   const { data: activity } = useQuery({ queryKey: ["activity"], queryFn: () => getMyActivity() });
-  const [method, setMethod] = useState<string>("robux");
+  const method = "robux";
   const [amount, setAmount] = useState("");
   const [destination, setDestination] = useState("");
-  const current = METHODS.find((m) => m.id === method)!;
 
   const submit = useMutation({
     mutationFn: () =>
