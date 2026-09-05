@@ -38,7 +38,6 @@ const WALLS = [
 ] as const;
 
 function EarnPage() {
-  const { data } = useQuery({ queryKey: ["me"], queryFn: () => getMe() });
   const { data: cpx } = useQuery({ queryKey: ["cpx-wall"], queryFn: () => getCpxWall(), staleTime: 60_000 });
   const [active, setActive] = useState<string | null>(null);
   const wall = WALLS.find((w) => w.id === active);
