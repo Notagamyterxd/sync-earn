@@ -5,7 +5,6 @@ import { Coins, ExternalLink } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { getCpxWall } from "@/lib/cpx.functions";
-import { getMe } from "@/lib/app.functions";
 
 export const Route = createFileRoute("/_authenticated/earn")({
   head: () => ({
