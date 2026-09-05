@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Coins, ExternalLink } from "lucide-react";
+import { Coins, ExternalLink, ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { getMe } from "@/lib/app.functions";
@@ -35,9 +35,10 @@ const WALLS = [
     id: "cpx",
     name: "CPX Research",
     blurb: "Paid surveys with the best rates on the platform.",
-    url: (uid: string) => `https://offers.cpx-research.com/index.php?app_id=&ext_user_id=${uid}`,
+    isRoute: true,
+    route: "/surveys",
   },
-];
+] as const;
 
 function EarnPage() {
   const { data } = useQuery({ queryKey: ["me"], queryFn: () => getMe() });
@@ -74,23 +75,41 @@ function EarnPage() {
         <div className="glow-card overflow-hidden rounded-xl">
           <div className="flex items-center justify-between border-b border-border/60 px-4 py-3">
             <h2 className="font-semibold">{wall.name}</h2>
-            <Button asChild size="sm" variant="outline">
-              <a href={wall.url(uid)} target="_blank" rel="noreferrer noopener">
-                Open in new tab <ExternalLink className="ml-1.5 size-3.5" />
-              </a>
-            </Button>
+            {"isRoute" in wall ? (
+              <Button asChild size="sm">
+                <Link to={wall.route}>
+                  Go to {wall.name} <ArrowRight className="ml-1.5 size-3.5" />
+                </Link>
+              </Button>
+            ) : (
+              <Button asChild size="sm" variant="outline">
+                <a href={wall.url(uid)} target="_blank" rel="noreferrer noopener">
+                  Open in new tab <ExternalLink className="ml-1.5 size-3.5" />
+                </a>
+              </Button>
+            )}
           </div>
           <div className="p-4">
-            <div className="flex h-[520px] items-center justify-center rounded-lg border border-dashed border-border bg-secondary/40 p-6 text-center">
-              <div>
-                <p className="font-medium">{wall.name} is not configured yet</p>
-                <p className="mt-1 max-w-md text-sm text-muted-foreground">
-                  Add your publisher ID for {wall.name} and this slot will load the live wall for
-                  user <span className="font-mono text-xs text-primary">{uid || "…"}</span>.
-                  Postbacks are already live and will credit Robux automatically.
+            {"isRoute" in wall ? (
+              <div className="flex h-[320px] flex-col items-center justify-center rounded-lg border border-dashed border-primary/30 bg-primary/5 p-6 text-center">
+                <p className="font-medium text-primary">{wall.name} is ready</p>
+                <p className="mt-2 max-w-md text-sm text-muted-foreground">
+                  Click the button above to open the dedicated Paid Surveys page. Your completions
+                  are tracked to your account and Robux is credited automatically.
                 </p>
               </div>
-            </div>
+            ) : (
+              <div className="flex h-[520px] items-center justify-center rounded-lg border border-dashed border-border bg-secondary/40 p-6 text-center">
+                <div>
+                  <p className="font-medium">{wall.name} is not configured yet</p>
+                  <p className="mt-1 max-w-md text-sm text-muted-foreground">
+                    Add your publisher ID for {wall.name} and this slot will load the live wall for
+                    user <span className="font-mono text-xs text-primary">{uid || "…"}</span>.
+                    Postbacks are already live and will credit Robux automatically.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
