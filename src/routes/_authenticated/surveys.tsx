@@ -47,37 +47,34 @@ function PaidSurveysPage() {
       </div>
 
       <Card className="overflow-hidden border-primary/20">
-        <CardHeader className="flex flex-row items-center justify-between border-b border-border/60">
-          <div>
-            <CardTitle className="text-lg text-primary">CPX Research</CardTitle>
-            <p className="text-xs text-muted-foreground">
-              Surveys usually take 2–20 minutes and pay out instantly on completion.
-            </p>
-          </div>
-          {cpxUrl && (
-            <Button asChild variant="outline" size="sm">
-              <a href={cpxUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                Open in new tab <ExternalLink className="size-3.5" />
-              </a>
-            </Button>
-          )}
+        <CardHeader className="border-b border-border/60">
+          <CardTitle className="text-lg text-primary">CPX Research</CardTitle>
+          <p className="text-xs text-muted-foreground">
+            Surveys usually take 2–20 minutes and pay out instantly on completion.
+          </p>
         </CardHeader>
-        <CardContent className="p-0">
+        <CardContent className="flex flex-col items-center gap-6 px-6 py-14 text-center">
           {isLoading ? (
-            <div className="flex min-h-[620px] items-center justify-center">
-              <Loader2 className="size-6 animate-spin text-primary" />
-            </div>
+            <Loader2 className="size-8 animate-spin text-primary" />
           ) : cpxUrl ? (
-            <iframe
-              src={cpxUrl}
-              title="CPX Research survey wall"
-              className="min-h-[620px] w-full border-0 bg-background"
-              allow="geolocation"
-            />
+            <>
+              <div className="space-y-2">
+                <p className="text-lg font-semibold">Ready to earn?</p>
+                <p className="mx-auto max-w-md text-sm text-muted-foreground">
+                  Click below and the CPX Research survey wall will open on their site in a new tab.
+                  Your earnings are tracked to your account and credited automatically.
+                </p>
+              </div>
+              <Button asChild size="lg" className="gap-2">
+                <a href={cpxUrl} target="_blank" rel="noopener noreferrer">
+                  Start Surveys <ExternalLink className="size-4" />
+                </a>
+              </Button>
+            </>
           ) : (
-            <div className="flex min-h-[620px] items-center justify-center text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Survey wall is unavailable right now — please try again shortly.
-            </div>
+            </p>
           )}
         </CardContent>
       </Card>
