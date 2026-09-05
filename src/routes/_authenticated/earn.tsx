@@ -35,9 +35,10 @@ const WALLS = [
     id: "cpx",
     name: "CPX Research",
     blurb: "Paid surveys with the best rates on the platform.",
-    url: (uid: string) => `https://offers.cpx-research.com/index.php?app_id=&ext_user_id=${uid}`,
+    isRoute: true,
+    route: "/surveys",
   },
-];
+] as const;
 
 function EarnPage() {
   const { data } = useQuery({ queryKey: ["me"], queryFn: () => getMe() });
