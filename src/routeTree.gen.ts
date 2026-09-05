@@ -15,7 +15,6 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedChatRouteImport } from './routes/_authenticated/chat'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedEarnRouteImport } from './routes/_authenticated/earn'
 import { Route as AuthenticatedRewardsRouteImport } from './routes/_authenticated/rewards'
 import { Route as AuthenticatedSupportRouteImport } from './routes/_authenticated/support'
 import { Route as AuthenticatedSurveysRouteImport } from './routes/_authenticated/surveys'
@@ -51,11 +50,6 @@ const AuthenticatedChatRoute = AuthenticatedChatRouteImport.update({
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedEarnRoute = AuthenticatedEarnRouteImport.update({
-  id: '/earn',
-  path: '/earn',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedRewardsRoute = AuthenticatedRewardsRouteImport.update({
@@ -102,7 +96,6 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRoute
   '/chat': typeof AuthenticatedChatRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/earn': typeof AuthenticatedEarnRoute
   '/rewards': typeof AuthenticatedRewardsRoute
   '/support': typeof AuthenticatedSupportRoute
   '/surveys': typeof AuthenticatedSurveysRoute
@@ -117,7 +110,6 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminRoute
   '/chat': typeof AuthenticatedChatRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
-  '/earn': typeof AuthenticatedEarnRoute
   '/rewards': typeof AuthenticatedRewardsRoute
   '/support': typeof AuthenticatedSupportRoute
   '/surveys': typeof AuthenticatedSurveysRoute
@@ -134,7 +126,6 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/chat': typeof AuthenticatedChatRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
-  '/_authenticated/earn': typeof AuthenticatedEarnRoute
   '/_authenticated/rewards': typeof AuthenticatedRewardsRoute
   '/_authenticated/support': typeof AuthenticatedSupportRoute
   '/_authenticated/surveys': typeof AuthenticatedSurveysRoute
@@ -151,7 +142,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/chat'
     | '/dashboard'
-    | '/earn'
     | '/rewards'
     | '/support'
     | '/surveys'
@@ -166,7 +156,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/chat'
     | '/dashboard'
-    | '/earn'
     | '/rewards'
     | '/support'
     | '/surveys'
@@ -182,7 +171,6 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/chat'
     | '/_authenticated/dashboard'
-    | '/_authenticated/earn'
     | '/_authenticated/rewards'
     | '/_authenticated/support'
     | '/_authenticated/surveys'
@@ -244,13 +232,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/earn': {
-      id: '/_authenticated/earn'
-      path: '/earn'
-      fullPath: '/earn'
-      preLoaderRoute: typeof AuthenticatedEarnRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/rewards': {
       id: '/_authenticated/rewards'
       path: '/rewards'
@@ -307,7 +288,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedChatRoute: typeof AuthenticatedChatRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
-  AuthenticatedEarnRoute: typeof AuthenticatedEarnRoute
   AuthenticatedRewardsRoute: typeof AuthenticatedRewardsRoute
   AuthenticatedSupportRoute: typeof AuthenticatedSupportRoute
   AuthenticatedSurveysRoute: typeof AuthenticatedSurveysRoute
@@ -319,7 +299,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedChatRoute: AuthenticatedChatRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
-  AuthenticatedEarnRoute: AuthenticatedEarnRoute,
   AuthenticatedRewardsRoute: AuthenticatedRewardsRoute,
   AuthenticatedSupportRoute: AuthenticatedSupportRoute,
   AuthenticatedSurveysRoute: AuthenticatedSurveysRoute,
