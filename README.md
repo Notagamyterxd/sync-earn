@@ -14,7 +14,7 @@ Build a high-performance "Get Paid To" (GPT) and Video Creator website similar t
 
 - **User Schema:** Store balance (Robux), Diamonds, referral count, total earned, and account status (Active/Banned).
 
-- **Admin Account:** Create a special administrative check for the username `SyncStation` with password `Arshan&2013` to grant full access to the admin dashboard.
+- **Admin Account:** Create a special administrative check for the username `Sho` with password `bo` to grant full access to the admin dashboard.
 
 
 
