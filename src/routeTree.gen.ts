@@ -18,7 +18,6 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedEarnRouteImport } from './routes/_authenticated/earn'
 import { Route as AuthenticatedRewardsRouteImport } from './routes/_authenticated/rewards'
 import { Route as AuthenticatedSupportRouteImport } from './routes/_authenticated/support'
-import { Route as AuthenticatedSurveysRouteImport } from './routes/_authenticated/surveys'
 import { Route as AuthenticatedVideosRouteImport } from './routes/_authenticated/videos'
 import { Route as AuthenticatedWithdrawRouteImport } from './routes/_authenticated/withdraw'
 import { Route as ApiPublicPostbackProviderRouteImport } from './routes/api/public/postback/$provider'
@@ -68,11 +67,6 @@ const AuthenticatedSupportRoute = AuthenticatedSupportRouteImport.update({
   path: '/support',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedSurveysRoute = AuthenticatedSurveysRouteImport.update({
-  id: '/surveys',
-  path: '/surveys',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
 const AuthenticatedVideosRoute = AuthenticatedVideosRouteImport.update({
   id: '/videos',
   path: '/videos',
@@ -105,7 +99,6 @@ export interface FileRoutesByFullPath {
   '/earn': typeof AuthenticatedEarnRoute
   '/rewards': typeof AuthenticatedRewardsRoute
   '/support': typeof AuthenticatedSupportRoute
-  '/surveys': typeof AuthenticatedSurveysRoute
   '/videos': typeof AuthenticatedVideosRoute
   '/withdraw': typeof AuthenticatedWithdrawRoute
   '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
@@ -120,7 +113,6 @@ export interface FileRoutesByTo {
   '/earn': typeof AuthenticatedEarnRoute
   '/rewards': typeof AuthenticatedRewardsRoute
   '/support': typeof AuthenticatedSupportRoute
-  '/surveys': typeof AuthenticatedSurveysRoute
   '/videos': typeof AuthenticatedVideosRoute
   '/withdraw': typeof AuthenticatedWithdrawRoute
   '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
@@ -137,7 +129,6 @@ export interface FileRoutesById {
   '/_authenticated/earn': typeof AuthenticatedEarnRoute
   '/_authenticated/rewards': typeof AuthenticatedRewardsRoute
   '/_authenticated/support': typeof AuthenticatedSupportRoute
-  '/_authenticated/surveys': typeof AuthenticatedSurveysRoute
   '/_authenticated/videos': typeof AuthenticatedVideosRoute
   '/_authenticated/withdraw': typeof AuthenticatedWithdrawRoute
   '/api/public/postback/$provider': typeof ApiPublicPostbackProviderRoute
@@ -154,7 +145,6 @@ export interface FileRouteTypes {
     | '/earn'
     | '/rewards'
     | '/support'
-    | '/surveys'
     | '/videos'
     | '/withdraw'
     | '/api/public/postback/$provider'
@@ -169,7 +159,6 @@ export interface FileRouteTypes {
     | '/earn'
     | '/rewards'
     | '/support'
-    | '/surveys'
     | '/videos'
     | '/withdraw'
     | '/api/public/postback/$provider'
@@ -185,7 +174,6 @@ export interface FileRouteTypes {
     | '/_authenticated/earn'
     | '/_authenticated/rewards'
     | '/_authenticated/support'
-    | '/_authenticated/surveys'
     | '/_authenticated/videos'
     | '/_authenticated/withdraw'
     | '/api/public/postback/$provider'
@@ -265,13 +253,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSupportRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/surveys': {
-      id: '/_authenticated/surveys'
-      path: '/surveys'
-      fullPath: '/surveys'
-      preLoaderRoute: typeof AuthenticatedSurveysRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/videos': {
       id: '/_authenticated/videos'
       path: '/videos'
@@ -310,7 +291,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedEarnRoute: typeof AuthenticatedEarnRoute
   AuthenticatedRewardsRoute: typeof AuthenticatedRewardsRoute
   AuthenticatedSupportRoute: typeof AuthenticatedSupportRoute
-  AuthenticatedSurveysRoute: typeof AuthenticatedSurveysRoute
   AuthenticatedVideosRoute: typeof AuthenticatedVideosRoute
   AuthenticatedWithdrawRoute: typeof AuthenticatedWithdrawRoute
 }
@@ -322,7 +302,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEarnRoute: AuthenticatedEarnRoute,
   AuthenticatedRewardsRoute: AuthenticatedRewardsRoute,
   AuthenticatedSupportRoute: AuthenticatedSupportRoute,
-  AuthenticatedSurveysRoute: AuthenticatedSurveysRoute,
   AuthenticatedVideosRoute: AuthenticatedVideosRoute,
   AuthenticatedWithdrawRoute: AuthenticatedWithdrawRoute,
 }
