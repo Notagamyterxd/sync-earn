@@ -14,7 +14,6 @@ import {
   Menu,
   X,
   Gem,
-  ClipboardList,
 } from "lucide-react";
 
 import { Logo } from "@/components/Logo";
