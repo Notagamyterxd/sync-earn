@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Coins, ExternalLink } from "lucide-react";
+import { Coins, ExternalLink, ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { getMe } from "@/lib/app.functions";
